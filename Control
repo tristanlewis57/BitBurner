@@ -1,0 +1,10 @@
+/** @param {NS} ns **/
+export async function main(ns) {
+    await ns.clearPort(1)
+    await ns.clearPort(2)
+    await ns.writePort(1, ns.args[0])
+    await ns.writePort(2, ns.args[1])
+    ns.tprint(ns.peek(1))
+    ns.tprint(ns.peek(2))
+    ns.kill('Control.ns', 'home')
+}
