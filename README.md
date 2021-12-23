@@ -4,6 +4,7 @@ Collections of scripts used in bitburner
 CONTROL
 
 Used on home (or anywhere you'd like to use it) to write actions to ports which will be read(peeked) by the zombie scripts
+
 Use: run Control.ns hack/grow/weaken server
 
 ZOMBIE
