@@ -1,0 +1,27 @@
+/** @param {NS} ns **/
+//Argument = Number of ports able to hack
+export async function main(ns) {
+    var zombiesString = ns.read('zombies.txt')//Read from file created by ZBite.ns
+    var Zombies = zombiesString.split("\n")
+    ns.tprint(Zombies)
+    for(const server of Zombies){           //For all servers containing Zombie.ns
+        ns.tprint(server)
+        if(ns.getServerNumPortsRequired(server) <= ns.args[0]){ //Hack ports if you can hack enough ports to root
+           await ns.brutessh(server) 
+           //await ns.ftpcrack(server)
+           //await ns.relaysmtp(server)
+           //await ns.httpworm(server)
+           //await ns.sqlinject(server)
+           await ns.nuke(server)
+           
+           await ns.tprint(server)
+           ns.tprint(ns.hasRootAccess(server))
+           var ServerMEM = await ns.getServerMaxRam(server)//Get Server max ram
+           if(ns.hasRootAccess(server) && ServerMEM > 0){ //Check for root access and check if server has more than 0 ram
+               var serverMaxThreads = ServerMEM/2 //Divide by the ram of Zombie.ns
+               await ns.exec('Zombie.ns', server, serverMaxThreads)
+           }
+        }
+    }
+    
+}
