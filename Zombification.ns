@@ -1,0 +1,23 @@
+/** @param {NS} ns **/
+export async function main(ns) {
+    var Target = ns.args[0]
+    while(true){
+        
+        var securityLevel = await ns.getServerSecurityLevel(Target)
+        var minSecurity = await ns.getServerMinSecurityLevel(Target)
+       
+        var currentMoney = ns.getServerMoneyAvailable(Target)
+        var maxMoney = ns.getServerMaxMoney(Target)
+        if(securityLevel != minSecurity){ //Weaken the target if it is not at the minimum security
+            await ns.exec('Control.ns', 'home', 1, 'weaken', Target)
+
+        }else if(currentMoney < maxMoney){//If target is at min security and has less than max money, grow the account
+            await ns.exec('Control.ns', 'home', 1, 'grow', Target)
+        
+        }else{//If the above conditions are met, hack the account
+            await ns.exec('Control.ns', 'home', 1, 'hack', Target)
+        }
+        await ns.asleep(5000)
+        
+    }
+}
