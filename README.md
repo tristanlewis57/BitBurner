@@ -18,3 +18,9 @@ Run this to scan all servers and copy Zombie.ns to them. All servers with Zombie
 Uprising
 
 Run this with your available port hacks as an argument. This will root all rootable machines and run Zombie.ns(Zombie.ns will automatically close if it is not able to complete the command given by Control.ns or if there is no command available)
+
+Zombification
+
+Automatically sends commands to zombies to weaken/grow/hack a target. Priority of commands is min security level(weaken) > max money(grow) > hack. Very basic logic, but we are commanding zombies after all.
+
+Use: run Zombification.ns server
