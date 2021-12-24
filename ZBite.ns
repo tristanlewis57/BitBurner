@@ -1,0 +1,25 @@
+/** @param {NS} ns **/
+export async function main(ns) {
+    var ServerLogged = ['home']
+    for (const server of ServerLogged) {
+        ns.tprint(ServerLogged)
+        ns.tprint(server)
+        var connected = ns.scan(server)
+        for (const connectedServer of connected) { //Check connected servers to see if they are unlogged
+            if (ServerLogged.includes(connectedServer) == false) { //If server is not logged
+                ServerLogged.push(connectedServer)              //Add it to logged servers
+            }
+        }
+    }
+
+    for (const server of ServerLogged) {//Second for loop so I don't confuse myself, probably dumb
+        var serverText = server + "\n"
+        await ns.write('zombies.txt', serverText, 'a') //Log in a text file
+        await ns.scp('Zombie.ns', 'home', server)//Copy Zombie.ns to server
+    }
+
+}
+
+// For each connected server, check that a server has not already been added to the array and if not, add it to the array.
+// Repeat for each item in the array
+// Then go through the array and scp Zombie.ns
